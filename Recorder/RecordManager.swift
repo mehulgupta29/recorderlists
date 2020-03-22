@@ -160,6 +160,7 @@ class RecordManager: NSObject {
             let test = try managedContext.fetch(request)
             let recordToDelete = test[0] as! NSManagedObject
             managedContext.delete(recordToDelete)
+            try managedContext.save()
             DeleteRecord(id: forRecordAt)
         } catch {
             print("Failed to delete record while reading for entity - ", Entity.Records.rawValue)
@@ -180,7 +181,7 @@ class RecordManager: NSObject {
 //                let misc = data.value(forKey: RecordsEntity.misc.rawValue) as! String
 //                let uuid = data.value(forKey: RecordsEntity.uuid.rawValue) as? UUID
 //
-//                print("----- CURRENT RECORD ----- \n header:", header, "\n field1", field1, "\n field2", field2, "\n misc", misc, "\n uuid", uuid)
+//                print("----- CURRENT RECORD ----- \n header:", header, "\n field1", field1, "\n field2", field2, "\n misc", misc, "\n uuid", uuid!)
 //          }
 //
 //        } catch {

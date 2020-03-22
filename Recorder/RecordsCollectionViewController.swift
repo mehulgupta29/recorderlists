@@ -136,6 +136,24 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         }
         return cell
     }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let questionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        questionController.addAction(UIAlertAction(title: "Update Record", style: .default, handler: nil))
+        questionController.addAction(UIAlertAction(title: "Delete Record", style: .destructive, handler: {
+            (action:UIAlertAction!) -> Void in
+            let ac = UIAlertController(title: "Are you sure you want to delete this record?", message: nil, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {
+                (action:UIAlertAction!) -> Void in
+                RecordManager.Delete(forRecordAt: indexPath.item)
+                self.collectionView.reloadData()
+            }))
+            self.present(ac, animated: true, completion: nil)
+        }))
+        questionController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(questionController, animated: true, completion: nil)
+    }
     
     // TODO: Update cell
     // TODO: Delete cell
@@ -143,31 +161,26 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
     // TODO: Slide left-to-right to update
 
     // MARK: UICollectionViewDelegate
-
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return true
     }
-    */
-
-    /*
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     */
-
+    
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
+        return true
     }
 
     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
+        return true
     }
-
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
     }
