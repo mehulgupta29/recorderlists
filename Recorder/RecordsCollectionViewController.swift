@@ -11,9 +11,16 @@ import UIKit
 private let reuseIdentifier = "recordCell"
 private let headerReuseIdentifier = "recordsHeader"
 
-//private var Records = [Record]()
-
-class RecordsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class RecordsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating {
+    
+    var searchController : UISearchController!
+    var filteredRecords: [Record] = []
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +29,16 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         // self.clearsSelectionOnViewWillAppear = false
 
         // Do any additional setup after loading the view.
-//        // Load mock data
-//        for i in stride(from: 1, to: 2, by: 1) {
-//            Records.append(Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)"))
-//        }
+        //SearchBar in the the navigation bar
+        self.searchController = UISearchController(searchResultsController:  nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Records"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        // loadMockData()
+        
         // Fetch saved data from code data
         RecordManager.Fetch()
     }
@@ -34,6 +47,12 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         super.viewDidAppear(animated)
         collectionView.reloadData()
     }
+    
+//    func loadMockData() {
+//        for i in stride(from: 1, to: 10, by: 1) {
+//            RecordManager.Save(record: Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)"))
+//        }
+//    }
 
     /*
     // MARK: - Navigation
@@ -44,8 +63,24 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         // Pass the selected object to the new view controller.
     }
     */
-
-    @IBAction func AddRecord(_ sender: UIButton) {
+    
+    // MARK: - Search
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
+    func filterContentForSearchText(_ searchText: String) {
+        filteredRecords = RecordManager.Records.filter { (record: Record) -> Bool in
+        return record.header!.lowercased().contains(searchText.lowercased()) || record.field1!.lowercased().contains(searchText.lowercased()) || record.field2!.lowercased().contains(searchText.lowercased())
+      }
+      collectionView.reloadData()
+    }
+   
+    // MARK: - Add new record
+    @IBAction func AddRecord(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Add Record", message: nil, preferredStyle: .alert)
         alert.addTextField(configurationHandler: { textField in textField.placeholder = "Header" })
         alert.addTextField(configurationHandler: { textField in textField.placeholder = "Field One" })
@@ -53,7 +88,7 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { action in
-            
+
             let header = alert.textFields![0]
             let field1 = alert.textFields![1]
             let field2 = alert.textFields![2]
@@ -83,16 +118,22 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         return headerView
     }
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
+        if isFiltering {
+            return filteredRecords.count
+        }
         return RecordManager.Records.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RecordCollectionViewCell
-        cell.record = RecordManager.Records[indexPath.item]
+        
+        if isFiltering {
+            cell.record = filteredRecords[indexPath.item]
+        } else {
+            cell.record = RecordManager.Records[indexPath.item]
+        }
         return cell
     }
     
