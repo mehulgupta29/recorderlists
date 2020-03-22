@@ -10,8 +10,8 @@ import UIKit
 
 private let reuseIdentifier = "recordCell"
 private let headerReuseIdentifier = "recordsHeader"
-private var Records = [Record]()
 
+//private var Records = [Record]()
 
 class RecordsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -22,10 +22,12 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         // self.clearsSelectionOnViewWillAppear = false
 
         // Do any additional setup after loading the view.
-        // Load mock date
-        for i in stride(from: 1, to: 2, by: 1) {
-            Records.append(Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)"))
-        }
+//        // Load mock data
+//        for i in stride(from: 1, to: 2, by: 1) {
+//            Records.append(Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)"))
+//        }
+        // Fetch saved data from code data
+        RecordManager.Fetch()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,8 +57,8 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
             let header = alert.textFields![0]
             let field1 = alert.textFields![1]
             let field2 = alert.textFields![2]
-            
-            Records.insert(Record(header: header.text!, field1: field1.text!, field2: field2.text!), at: 0)
+
+            RecordManager.Save(record: Record(header: header.text!, field1: field1.text!, field2: field2.text!))
             self.collectionView.reloadData()
         }))
 
@@ -86,13 +88,18 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return Records.count
+        return RecordManager.Records.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RecordCollectionViewCell
-        cell.record = Records[indexPath.item]
+        cell.record = RecordManager.Records[indexPath.item]
         return cell
     }
+    
+    // TODO: Update cell
+    // TODO: Delete cell
+    // TODO: Slide right-to-left to delete
+    // TODO: Slide left-to-right to update
 
     // MARK: UICollectionViewDelegate
 
