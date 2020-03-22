@@ -23,47 +23,51 @@ enum RecordsEntity: String {
 
 class RecordManager: NSObject {
 
-    static var records = [Record]();
+    static var Records = [Record]();
     
     static var managedContext: NSManagedObjectContext = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
     }()
     
-    class func addRecord(header: String, field1: String, field2: String, misc: String, uuid: UUID?) {
-        let record = Record(header: header, field1: field1, field2: field2, misc: misc, uuid: uuid ?? UUID())
-        records.append(record)
+    class func InsertRecord(record: Record, at: Int) -> Void {
+        Records.insert(record, at: at)
     }
     
-    class func addRecord(record: Record) {
-        records.append(record)
+    class func AddRecord(header: String, field1: String, field2: String, misc: String, uuid: UUID?) {
+        Records.append(Record(header: header, field1: field1, field2: field2, misc: misc, uuid: uuid ?? UUID()))
+    }
+    
+    class func AddRecord(record: Record) {
+        Records.append(record)
     }
 
-    class func deleteRecord(id: Int) {
-        if records.count > 0  && id >= 0 {
-            records.remove(at: id)
+    class func DeleteRecord(id: Int) {
+        if Records.count > 0  && id >= 0 {
+            Records.remove(at: id)
         }
     }
     
-    class func getRecord(id: Int) -> Record {
-        if records.count > 0 && id >= 0 {
-            return records[id]
+    class func GetRecord(id: Int) -> Record {
+        if Records.count > 0 && id >= 0 {
+            return Records[id]
         }
         return Record()
     }
     
-    class func updateRecord(oldRecord: Record, record: Record) {
-        if records.count > 0, let i = records.firstIndex(of: oldRecord) {
-            records[i] = record
+    class func UpdateRecord(oldRecord: Record, record: Record) {
+        if Records.count > 0, let i = Records.firstIndex(of: oldRecord) {
+            Records[i] = record
         }
     }
     
-    class func fetch() {
+    class func Fetch() {
         // Reset records
-        records.removeAll()
+        Records.removeAll()
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: Entity.Records.rawValue)
         request.returnsObjectsAsFaults = false
+        
         do {
             let result = try managedContext.fetch(request)
             for data in result as! [NSManagedObject] {
@@ -73,16 +77,15 @@ class RecordManager: NSObject {
                 let misc = data.value(forKey: RecordsEntity.misc.rawValue) as! String
                 let uuid = data.value(forKey: RecordsEntity.uuid.rawValue) as? UUID
                 
-                addRecord(header: header, field1: field1, field2: field2, misc: misc, uuid: uuid)
+                AddRecord(header: header, field1: field1, field2: field2, misc: misc, uuid: uuid)
             }
-            
 //            displayCDRecords()
         } catch {
             print("Failed to read data from entity - ", Entity.Records.rawValue)
         }
     }
     
-    class func save(header: String, field1: String, field2: String, misc: String) {
+    class func Save(header: String, field1: String, field2: String, misc: String) {
         let record = Record(header: header, field1: field1, field2: field2, misc: misc, uuid: UUID())
         
         let recordsEntity = NSEntityDescription.entity(forEntityName: Entity.Records.rawValue, in: managedContext)
@@ -95,15 +98,32 @@ class RecordManager: NSObject {
         
         do {
             try managedContext.save()
-            addRecord(record: record)
-            
+            AddRecord(record: record)
 //            displayCDRecords()
         } catch {
             print("Failed to save record for entity - ", Entity.Records.rawValue)
         }
     }
     
-    class func update(oldRecord: Record, header: String, field1: String, field2: String, misc: String) {
+    class func Save(record: Record, at: Int = 0) -> Void {
+            let recordsEntity = NSEntityDescription.entity(forEntityName: Entity.Records.rawValue, in: managedContext)
+            let newRecord = NSManagedObject(entity: recordsEntity!, insertInto: managedContext)
+            newRecord.setValue(record.header, forKey: RecordsEntity.header.rawValue)
+            newRecord.setValue(record.field1, forKey: RecordsEntity.field1.rawValue)
+            newRecord.setValue(record.field2, forKey: RecordsEntity.field2.rawValue)
+            newRecord.setValue(record.misc, forKey: RecordsEntity.misc.rawValue)
+            newRecord.setValue(record.uuid, forKey: RecordsEntity.uuid.rawValue)
+            
+            do {
+                try managedContext.save()
+                InsertRecord(record: record, at: 0)
+    //            displayCDRecords()
+            } catch {
+                print("Failed to save record for entity - ", Entity.Records.rawValue)
+            }
+        }
+    
+    class func Update(oldRecord: Record, header: String, field1: String, field2: String, misc: String) {
         let record = Record(header: header, field1: field1, field2: field2, misc: misc, uuid: oldRecord.uuid!)
         
         let request: NSFetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: Entity.Records.rawValue)
@@ -120,8 +140,7 @@ class RecordManager: NSObject {
             
             do {
                 try managedContext.save()
-                updateRecord(oldRecord: oldRecord, record: record)
-                
+                UpdateRecord(oldRecord: oldRecord, record: record)
 //                displayCDRecords()
             } catch {
                 print("Failed to update record while saving for entity - ", Entity.Records.rawValue)
@@ -131,20 +150,20 @@ class RecordManager: NSObject {
         }
     }
     
-    class func delete(forRecordAt: Int) {
-        let record = getRecord(id: forRecordAt)
+    class func Delete(forRecordAt: Int) {
+        let record = GetRecord(id: forRecordAt)
         
         let request: NSFetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: Entity.Records.rawValue)
         request.predicate = NSPredicate(format: "uuid == %@", record.uuid! as CVarArg)
+        
         do {
             let test = try managedContext.fetch(request)
             let recordToDelete = test[0] as! NSManagedObject
             managedContext.delete(recordToDelete)
-            deleteRecord(id: forRecordAt)
+            DeleteRecord(id: forRecordAt)
         } catch {
             print("Failed to delete record while reading for entity - ", Entity.Records.rawValue)
         }
-        
 //        displayCDRecords()
     }
 
