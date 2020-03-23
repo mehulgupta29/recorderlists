@@ -95,7 +95,7 @@
             </objects>
             <point key="canvasLocation" x="1084.0579710144928" y="158.70535714285714"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Item-->
         <scene sceneID="xUz-P4-FR0">
             <objects>
                 <tableViewController id="ioM-Mk-7Yf" sceneMemberID="viewController">
@@ -118,6 +118,8 @@
                             <outlet property="delegate" destination="ioM-Mk-7Yf" id="jA2-Ld-lay"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="9NY-6J-e7d"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dU-kc-KHt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -158,6 +160,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="zDH-8V-pP6" kind="relationship" relationship="viewControllers" id="hp6-0d-RgY"/>
+                        <segue destination="ioM-Mk-7Yf" kind="relationship" relationship="viewControllers" id="x6X-Oh-Flu"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U70-cr-IYE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
