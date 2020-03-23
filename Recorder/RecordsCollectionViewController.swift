@@ -35,6 +35,7 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Records"
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
         // loadMockData()
