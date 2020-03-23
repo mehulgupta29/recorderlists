@@ -16,41 +16,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="F18-H9-UpQ">
-                            <size key="itemSize" width="0.0" height="50"/>
+                            <size key="itemSize" width="400" height="91"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="recordCell" id="V9x-z5-BXM" customClass="RecordCollectionViewCell" customModule="Recorder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
+                                <rect key="frame" x="7" y="0.0" width="400" height="91"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="arZ-O0-stx">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="91"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Header" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXh-1o-D7t">
-                                            <rect key="frame" x="10" y="10" width="0.0" height="15"/>
+                                            <rect key="frame" x="10" y="10" width="380" height="17"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="15" id="7H7-co-lRQ"/>
+                                                <constraint firstAttribute="height" constant="17" id="7H7-co-lRQ"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKM-iS-29g">
-                                            <rect key="frame" x="10" y="30" width="0.0" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKM-iS-29g">
+                                            <rect key="frame" x="10" y="32" width="380" height="22"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="A2N-hH-zso"/>
+                                                <constraint firstAttribute="height" constant="22" id="A2N-hH-zso"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a7S-NT-mcl">
-                                            <rect key="frame" x="10" y="55" width="0.0" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a7S-NT-mcl">
+                                            <rect key="frame" x="10" y="59" width="380" height="22"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="3bc-5E-jnv"/>
+                                                <constraint firstAttribute="height" constant="22" id="3bc-5E-jnv"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -70,6 +70,7 @@
                                         <constraint firstItem="a7S-NT-mcl" firstAttribute="top" secondItem="aKM-iS-29g" secondAttribute="bottom" constant="5" id="pF3-PQ-3cW"/>
                                     </constraints>
                                 </collectionViewCellContentView>
+                                <size key="customSize" width="400" height="91"/>
                                 <connections>
                                     <outlet property="field1Label" destination="aKM-iS-29g" id="LIl-EV-snI"/>
                                     <outlet property="field2Label" destination="a7S-NT-mcl" id="BdJ-x8-UC6"/>

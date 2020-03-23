@@ -137,11 +137,32 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         return cell
     }
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedRecord: Record = RecordManager.Records[indexPath.item]
+        
         let questionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        questionController.addAction(UIAlertAction(title: "Update Record", style: .default, handler: nil))
+        questionController.addAction(UIAlertAction(title: "Update Record", style: .default, handler: {
+            (action: UIAlertAction!) -> Void in
+            let updateRecordAC = UIAlertController(title: "Update Record", message: nil, preferredStyle: .alert)
+            updateRecordAC.addTextField(configurationHandler: { textField in textField.text = selectedRecord.header })
+            updateRecordAC.addTextField(configurationHandler: { textField in textField.text = selectedRecord.field1 })
+            updateRecordAC.addTextField(configurationHandler: { textField in textField.text = selectedRecord.field2 })
+
+            updateRecordAC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            updateRecordAC.addAction(UIAlertAction(title: "Update", style: .default, handler: { action in
+
+                let header = updateRecordAC.textFields![0].text!
+                let field1 = updateRecordAC.textFields![1].text!
+                let field2 = updateRecordAC.textFields![2].text!
+
+                RecordManager.Update(oldRecord: selectedRecord, header: header, field1: field1, field2: field2, misc: selectedRecord.misc!)
+                self.collectionView.reloadData()
+            }))
+
+            self.present(updateRecordAC, animated: true)
+        }))
         questionController.addAction(UIAlertAction(title: "Delete Record", style: .destructive, handler: {
-            (action:UIAlertAction!) -> Void in
-            let ac = UIAlertController(title: "Are you sure you want to delete this record?", message: nil, preferredStyle: .alert)
+            (action: UIAlertAction!) -> Void in
+            let ac = UIAlertController(title: "Delete Record", message: "Are you sure you want to delete this record?", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {
                 (action:UIAlertAction!) -> Void in
