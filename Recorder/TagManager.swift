@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class TagManager: NSObject {
-    static var Tags = [String]()
+    static var Tags = [[String]]()
     
     static var managedContext: NSManagedObjectContext = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -31,11 +31,20 @@ class TagManager: NSObject {
         
         do {
             let result = try managedContext.fetch(request)
+            var defaultTags = [String]()
             var distinctTags = [String]()
             for data in result {
-                distinctTags.append(((data as AnyObject).value(forKey: RecordsEntity.tag.rawValue) as? String ?? DEFAULT_TAG).uppercased())
+                let value = (data as AnyObject).value(forKey: RecordsEntity.tag.rawValue) as? String
+                if (value == nil) {
+                    defaultTags.append(DEFAULT_TAG)
+                } else {
+                    distinctTags.append(value!.uppercased())
+                }
             }
-            Tags.append(contentsOf: distinctTags)
+            if (defaultTags.count > 0) {
+                Tags.append(defaultTags)
+            }
+            Tags.append(distinctTags)
         } catch {
             print("Failed to read data from entity - ", Entity.Records.rawValue)
         }

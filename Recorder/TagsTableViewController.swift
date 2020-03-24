@@ -55,18 +55,17 @@ class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return TagManager.Tags.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return TagManager.Tags.count
+        return TagManager.Tags[section].count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = TagManager.Tags[indexPath.item]
+        cell.textLabel?.text = TagManager.Tags[indexPath.section][indexPath.item]
         return cell
     }
     
