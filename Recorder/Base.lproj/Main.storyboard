@@ -12,7 +12,7 @@
             <objects>
                 <collectionViewController id="QSo-Ii-Vr6" customClass="RecordsCollectionViewController" customModule="Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="DOy-oF-EPT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="F18-H9-UpQ">
@@ -142,9 +142,7 @@
                             <outlet property="delegate" destination="ioM-Mk-7Yf" id="jA2-Ld-lay"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tags" largeTitleDisplayMode="always" id="nEL-Sg-ktw">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="z8f-rJ-bKT"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Tags" largeTitleDisplayMode="always" id="nEL-Sg-ktw"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dU-kc-KHt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
