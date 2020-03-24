@@ -40,9 +40,12 @@ class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
-        
-        // Load Tags Data
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         TagManager.FetchDistinctTags()
+        tableView.reloadData()
     }
     
     // MARK: - Search
