@@ -29,7 +29,7 @@ class Record: NSObject {
         self.field2 = field2
         self.misc = misc
         self.uuid = uuid ?? UUID()
-        self.tag = tag?.uppercased() ?? DEFAULT_TAG
+        self.tag = (tag?.count)! == 0 ? DEFAULT_TAG : tag!.uppercased()
     }
     
     override init() {

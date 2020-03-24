@@ -38,10 +38,13 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
-//         loadMockData(10)
+        // loadMockData(10)
         
         // Fetch saved data from code data
         RecordManager.Fetch()
+        
+        // Migration
+         migrationForTags()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,6 +57,12 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
 //            RecordManager.Save(record: Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)", tag: "Tag\(i < 5 ? "Black" : "Rock")"))
 //        }
 //    }
+    
+    func migrationForTags() {
+        for record in RecordManager.Records {
+            RecordManager.Update(oldRecord: record, header: record.header!, field1: record.field1!, field2: record.field2!, tag: record.tag!, misc: record.misc!)
+        }
+    }
 
     /*
     // MARK: - Navigation

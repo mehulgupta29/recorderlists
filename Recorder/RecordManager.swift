@@ -86,7 +86,7 @@ class RecordManager: NSObject {
             print("Failed to read data from entity - ", Entity.Records.rawValue)
         }
     }
-    
+
     class func Save(header: String, field1: String, field2: String, tag: String, misc: String) {
         let record = Record(header: header, field1: field1, field2: field2, tag: tag, misc: misc, uuid: UUID())
 
