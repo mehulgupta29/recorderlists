@@ -13,7 +13,7 @@ private let reuseIdentifier = "tagsCell"
 class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
     
     var searchController : UISearchController!
-    var filteredTags: [Record] = []
+    var filteredTags: [String] = []
     var isSearchBarEmpty: Bool {
       return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -45,27 +45,42 @@ class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
     }
     
     // MARK: - Search
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.dismiss(animated: true, completion: nil)
+    }
     func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    func filterContentForSearchText(_ searchText: String) {
+        filteredTags = TagManager.Tags.flatMap{$0}.filter{ (tag: String) -> Bool in
+            return tag.uppercased().contains(searchText.uppercased())
+      }
+      tableView.reloadData()
     }
 
     // MARK: - Table view data source
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return ""
-//    }
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        if isFiltering {
+            return 1
+        }
         return TagManager.Tags.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if isFiltering {
+            return filteredTags.count
+        }
         return TagManager.Tags[section].count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = TagManager.Tags[indexPath.section][indexPath.item]
+        
+        if isFiltering {
+            cell.textLabel?.text = filteredTags[indexPath.item]
+        } else {
+            cell.textLabel?.text = TagManager.Tags[indexPath.section][indexPath.item]
+        }
         return cell
     }
     
