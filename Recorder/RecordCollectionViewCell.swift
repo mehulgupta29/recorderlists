@@ -13,6 +13,7 @@ class RecordCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var field1Label: UILabel!
     @IBOutlet weak var field2Label: UILabel!
+    @IBOutlet weak var tagLabel: UILabel!
     
     var record: Record? {
         didSet {
@@ -38,6 +39,7 @@ class RecordCollectionViewCell: UICollectionViewCell {
         self.headerLabel?.text = self.record?.header
         self.field1Label?.text = self.record?.field1
         self.field2Label?.text = self.record?.field2
+        self.tagLabel?.text = self.record?.tag
     }
     
     // MARK: Methods

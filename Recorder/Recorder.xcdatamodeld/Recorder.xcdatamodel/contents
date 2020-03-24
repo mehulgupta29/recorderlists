@@ -5,9 +5,10 @@
         <attribute name="field2" optional="YES" attributeType="String"/>
         <attribute name="header" optional="YES" attributeType="String"/>
         <attribute name="misc" optional="YES" attributeType="String"/>
+        <attribute name="tag" optional="YES" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="Records" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Records" positionX="-63" positionY="-18" width="128" height="133"/>
     </elements>
 </model>

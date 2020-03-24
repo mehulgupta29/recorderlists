@@ -8,6 +8,8 @@
 
 import UIKit
 
+let DEFAULT_TAG = "DEFAULT"
+
 class Record: NSObject {
     var header: String?
     var field1: String?
@@ -15,12 +17,19 @@ class Record: NSObject {
     var misc: String?
     var uuid: UUID?
     
-    init(header: String, field1: String, field2: String, misc: String = "", uuid: UUID = UUID()) {
+    var tag: String? {
+        didSet {
+            tag = tag?.uppercased()
+        }
+    }
+    
+    init(header: String, field1: String, field2: String, tag: String? = DEFAULT_TAG, misc: String = "", uuid: UUID? = UUID()) {
         self.header = header
         self.field1 = field1
         self.field2 = field2
         self.misc = misc
-        self.uuid = uuid
+        self.uuid = uuid ?? UUID()
+        self.tag = tag?.uppercased() ?? DEFAULT_TAG
     }
     
     override init() {

@@ -75,7 +75,7 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
     }
     func filterContentForSearchText(_ searchText: String) {
         filteredRecords = RecordManager.Records.filter { (record: Record) -> Bool in
-        return record.header!.lowercased().contains(searchText.lowercased()) || record.field1!.lowercased().contains(searchText.lowercased()) || record.field2!.lowercased().contains(searchText.lowercased())
+        return record.header!.lowercased().contains(searchText.lowercased()) || record.field1!.lowercased().contains(searchText.lowercased()) || record.field2!.lowercased().contains(searchText.lowercased()) || record.tag!.uppercased().contains(searchText.uppercased())
       }
       collectionView.reloadData()
     }
@@ -86,15 +86,17 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         alert.addTextField(configurationHandler: { textField in textField.placeholder = "Header" })
         alert.addTextField(configurationHandler: { textField in textField.placeholder = "Field One" })
         alert.addTextField(configurationHandler: { textField in textField.placeholder = "Field Two" })
+        alert.addTextField(configurationHandler: { textField in textField.text = DEFAULT_TAG })
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { action in
 
-            let header = alert.textFields![0]
-            let field1 = alert.textFields![1]
-            let field2 = alert.textFields![2]
+            let header = alert.textFields![0].text!
+            let field1 = alert.textFields![1].text!
+            let field2 = alert.textFields![2].text!
+            let tag = alert.textFields![3].text!
 
-            RecordManager.Save(record: Record(header: header.text!, field1: field1.text!, field2: field2.text!))
+            RecordManager.Save(record: Record(header: header, field1: field1, field2: field2, tag: tag))
             self.collectionView.reloadData()
         }))
 
@@ -147,6 +149,7 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
             updateRecordAC.addTextField(configurationHandler: { textField in textField.text = selectedRecord.header })
             updateRecordAC.addTextField(configurationHandler: { textField in textField.text = selectedRecord.field1 })
             updateRecordAC.addTextField(configurationHandler: { textField in textField.text = selectedRecord.field2 })
+            updateRecordAC.addTextField(configurationHandler: { textField in textField.text = selectedRecord.tag })
 
             updateRecordAC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             updateRecordAC.addAction(UIAlertAction(title: "Update", style: .default, handler: { action in
@@ -154,8 +157,9 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
                 let header = updateRecordAC.textFields![0].text!
                 let field1 = updateRecordAC.textFields![1].text!
                 let field2 = updateRecordAC.textFields![2].text!
+                let tag = updateRecordAC.textFields![3].text!
 
-                RecordManager.Update(oldRecord: selectedRecord, header: header, field1: field1, field2: field2, misc: selectedRecord.misc!)
+                RecordManager.Update(oldRecord: selectedRecord, header: header, field1: field1, field2: field2, tag: tag, misc: selectedRecord.misc!)
                 self.collectionView.reloadData()
             }))
 

@@ -17,6 +17,7 @@ enum RecordsEntity: String {
     case header = "header"
     case field1 = "field1"
     case field2 = "field2"
+    case tag = "tag"
     case misc = "misc"
     case uuid = "uuid"
 }
@@ -34,8 +35,8 @@ class RecordManager: NSObject {
         Records.insert(record, at: at)
     }
     
-    class func AddRecord(header: String, field1: String, field2: String, misc: String, uuid: UUID?) {
-        Records.append(Record(header: header, field1: field1, field2: field2, misc: misc, uuid: uuid ?? UUID()))
+    class func AddRecord(header: String, field1: String, field2: String, tag: String?, misc: String, uuid: UUID?) {
+        Records.append(Record(header: header, field1: field1, field2: field2, tag: tag, misc: misc, uuid: uuid))
     }
     
     class func AddRecord(record: Record) {
@@ -74,10 +75,11 @@ class RecordManager: NSObject {
                 let header = data.value(forKey: RecordsEntity.header.rawValue) as! String
                 let field1 = data.value(forKey: RecordsEntity.field1.rawValue) as! String
                 let field2 = data.value(forKey: RecordsEntity.field2.rawValue) as! String
+                let tag = data.value(forKey: RecordsEntity.tag.rawValue) as? String
                 let misc = data.value(forKey: RecordsEntity.misc.rawValue) as! String
                 let uuid = data.value(forKey: RecordsEntity.uuid.rawValue) as? UUID
                 
-                AddRecord(header: header, field1: field1, field2: field2, misc: misc, uuid: uuid)
+                AddRecord(header: header, field1: field1, field2: field2, tag: tag, misc: misc, uuid: uuid)
             }
 //            displayCDRecords()
         } catch {
@@ -85,14 +87,15 @@ class RecordManager: NSObject {
         }
     }
     
-    class func Save(header: String, field1: String, field2: String, misc: String) {
-        let record = Record(header: header, field1: field1, field2: field2, misc: misc, uuid: UUID())
-        
+    class func Save(header: String, field1: String, field2: String, tag: String, misc: String) {
+        let record = Record(header: header, field1: field1, field2: field2, tag: tag, misc: misc, uuid: UUID())
+
         let recordsEntity = NSEntityDescription.entity(forEntityName: Entity.Records.rawValue, in: managedContext)
         let newRecord = NSManagedObject(entity: recordsEntity!, insertInto: managedContext)
         newRecord.setValue(record.header, forKey: RecordsEntity.header.rawValue)
         newRecord.setValue(record.field1, forKey: RecordsEntity.field1.rawValue)
         newRecord.setValue(record.field2, forKey: RecordsEntity.field2.rawValue)
+        newRecord.setValue(record.tag, forKey: RecordsEntity.tag.rawValue)
         newRecord.setValue(record.misc, forKey: RecordsEntity.misc.rawValue)
         newRecord.setValue(record.uuid, forKey: RecordsEntity.uuid.rawValue)
         
@@ -106,25 +109,26 @@ class RecordManager: NSObject {
     }
     
     class func Save(record: Record, at: Int = 0) -> Void {
-            let recordsEntity = NSEntityDescription.entity(forEntityName: Entity.Records.rawValue, in: managedContext)
-            let newRecord = NSManagedObject(entity: recordsEntity!, insertInto: managedContext)
-            newRecord.setValue(record.header, forKey: RecordsEntity.header.rawValue)
-            newRecord.setValue(record.field1, forKey: RecordsEntity.field1.rawValue)
-            newRecord.setValue(record.field2, forKey: RecordsEntity.field2.rawValue)
-            newRecord.setValue(record.misc, forKey: RecordsEntity.misc.rawValue)
-            newRecord.setValue(record.uuid, forKey: RecordsEntity.uuid.rawValue)
-            
-            do {
-                try managedContext.save()
-                InsertRecord(record: record, at: 0)
-    //            displayCDRecords()
-            } catch {
-                print("Failed to save record for entity - ", Entity.Records.rawValue)
-            }
+        let recordsEntity = NSEntityDescription.entity(forEntityName: Entity.Records.rawValue, in: managedContext)
+        let newRecord = NSManagedObject(entity: recordsEntity!, insertInto: managedContext)
+        newRecord.setValue(record.header, forKey: RecordsEntity.header.rawValue)
+        newRecord.setValue(record.field1, forKey: RecordsEntity.field1.rawValue)
+        newRecord.setValue(record.field2, forKey: RecordsEntity.field2.rawValue)
+        newRecord.setValue(record.tag, forKey: RecordsEntity.tag.rawValue)
+        newRecord.setValue(record.misc, forKey: RecordsEntity.misc.rawValue)
+        newRecord.setValue(record.uuid, forKey: RecordsEntity.uuid.rawValue)
+        
+        do {
+            try managedContext.save()
+            InsertRecord(record: record, at: 0)
+//            displayCDRecords()
+        } catch {
+            print("Failed to save record for entity - ", Entity.Records.rawValue)
         }
+    }
     
-    class func Update(oldRecord: Record, header: String, field1: String, field2: String, misc: String) {
-        let record = Record(header: header, field1: field1, field2: field2, misc: misc, uuid: oldRecord.uuid!)
+    class func Update(oldRecord: Record, header: String, field1: String, field2: String, tag: String, misc: String) {
+        let record = Record(header: header, field1: field1, field2: field2, tag: tag, misc: misc, uuid: oldRecord.uuid!)
         
         let request: NSFetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: Entity.Records.rawValue)
         request.predicate = NSPredicate(format: "uuid == %@", record.uuid! as CVarArg)
@@ -135,6 +139,7 @@ class RecordManager: NSObject {
             updatedRecord.setValue(record.header, forKey: RecordsEntity.header.rawValue)
             updatedRecord.setValue(record.field1, forKey: RecordsEntity.field1.rawValue)
             updatedRecord.setValue(record.field2, forKey: RecordsEntity.field2.rawValue)
+            updatedRecord.setValue(record.tag, forKey: RecordsEntity.tag.rawValue)
             updatedRecord.setValue(record.misc, forKey: RecordsEntity.misc.rawValue)
             updatedRecord.setValue(record.uuid, forKey: RecordsEntity.uuid.rawValue)
             
