@@ -15,6 +15,7 @@ class RecordCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var field2Label: UILabel!
     @IBOutlet weak var tagLabel: UILabel!
     
+    var isFromTagsScreen: Bool = false
     var record: Record? {
         didSet {
             self.setupCell()
@@ -25,7 +26,6 @@ class RecordCollectionViewCell: UICollectionViewCell {
         UIColor(red: 0.26997111790701567, green: 0.29340057011895126, blue: 0.3904781954634089, alpha: 1.0)
     ]
 
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setupCell()
@@ -34,12 +34,17 @@ class RecordCollectionViewCell: UICollectionViewCell {
     // MARK: Setup Cell
     fileprivate func setupCell() {
         self.roundCorner()
-//        self.contentView.backgroundColor = self.randomColor()
-        self.contentView.backgroundColor = Colors[0]
         self.headerLabel?.text = self.record?.header
         self.field1Label?.text = self.record?.field1
         self.field2Label?.text = self.record?.field2
-        self.tagLabel?.text = self.record?.tag
+        
+        if !isFromTagsScreen {
+            self.tagLabel?.text = self.record?.tag
+        }
+        
+        // self.contentView.backgroundColor = self.randomColor()
+        self.contentView.backgroundColor = Colors[0]
+
     }
     
     // MARK: Methods
@@ -49,6 +54,7 @@ class RecordCollectionViewCell: UICollectionViewCell {
         self.contentView.layer.borderWidth = 1.0
         self.contentView.layer.borderColor = UIColor.clear.cgColor
     }
+    
     // custom function to generate a random UIColor
 //    func randomColor() -> UIColor{
 //        let red = CGFloat(drand48())

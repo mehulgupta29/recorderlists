@@ -86,6 +86,32 @@ class RecordManager: NSObject {
             print("Failed to read data from entity - ", Entity.Records.rawValue)
         }
     }
+    
+    class func FetchRecords(for tag: String) {
+        // Reset Records array
+        Records.removeAll()
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Entity.Records.rawValue)
+        request.sortDescriptors = [NSSortDescriptor(key: RecordsEntity.header.rawValue, ascending: true)]
+        request.predicate = NSPredicate(format: "\(RecordsEntity.tag.rawValue) == %@", tag as CVarArg)
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let result = try managedContext.fetch(request)
+            for data in result as! [NSManagedObject] {
+                let header = data.value(forKey: RecordsEntity.header.rawValue) as! String
+                let field1 = data.value(forKey: RecordsEntity.field1.rawValue) as! String
+                let field2 = data.value(forKey: RecordsEntity.field2.rawValue) as! String
+                let tag = data.value(forKey: RecordsEntity.tag.rawValue) as? String
+                let misc = data.value(forKey: RecordsEntity.misc.rawValue) as! String
+                let uuid = data.value(forKey: RecordsEntity.uuid.rawValue) as? UUID
+                AddRecord(header: header, field1: field1, field2: field2, tag: tag, misc: misc, uuid: uuid)
+            }
+            print(Records)
+        } catch {
+            print("Failed to retrive records for given tag -", tag)
+        }
+    }
 
     class func Save(header: String, field1: String, field2: String, tag: String, misc: String) {
         let record = Record(header: header, field1: field1, field2: field2, tag: tag, misc: misc, uuid: UUID())

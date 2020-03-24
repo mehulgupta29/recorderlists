@@ -20,8 +20,6 @@
 		48888D5824279D75007F10BF /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48888D5724279D75007F10BF /* RecordManager.swift */; };
 		48888D5A242971BF007F10BF /* TagsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48888D59242971BF007F10BF /* TagsTableViewController.swift */; };
 		48888D5C24298DBB007F10BF /* TagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48888D5B24298DBB007F10BF /* TagManager.swift */; };
-		48888D5E242A2E82007F10BF /* TagRecordsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48888D5D242A2E82007F10BF /* TagRecordsCollectionViewController.swift */; };
-		48888D60242A38E8007F10BF /* TagRecordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48888D5F242A38E8007F10BF /* TagRecordCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,8 +38,6 @@
 		48888D5724279D75007F10BF /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
 		48888D59242971BF007F10BF /* TagsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTableViewController.swift; sourceTree = "<group>"; };
 		48888D5B24298DBB007F10BF /* TagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManager.swift; sourceTree = "<group>"; };
-		48888D5D242A2E82007F10BF /* TagRecordsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRecordsCollectionViewController.swift; sourceTree = "<group>"; };
-		48888D5F242A38E8007F10BF /* TagRecordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRecordCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +84,6 @@
 				48888D5724279D75007F10BF /* RecordManager.swift */,
 				48888D59242971BF007F10BF /* TagsTableViewController.swift */,
 				48888D5B24298DBB007F10BF /* TagManager.swift */,
-				48888D5D242A2E82007F10BF /* TagRecordsCollectionViewController.swift */,
-				48888D5F242A38E8007F10BF /* TagRecordCollectionViewCell.swift */,
 			);
 			path = Recorder;
 			sourceTree = "<group>";
@@ -167,8 +161,6 @@
 			files = (
 				48888D5824279D75007F10BF /* RecordManager.swift in Sources */,
 				486D643B2426DA7200BB20BF /* RecordCollectionViewCell.swift in Sources */,
-				48888D60242A38E8007F10BF /* TagRecordCollectionViewCell.swift in Sources */,
-				48888D5E242A2E82007F10BF /* TagRecordsCollectionViewController.swift in Sources */,
 				48888D5C24298DBB007F10BF /* TagManager.swift in Sources */,
 				486D64242426D7A600BB20BF /* ViewController.swift in Sources */,
 				486D64202426D7A600BB20BF /* AppDelegate.swift in Sources */,

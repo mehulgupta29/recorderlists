@@ -22,6 +22,9 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         return searchController.isActive && !isSearchBarEmpty
     }
     
+    var isFromTagsScreen: Bool = false
+    var tag: String = DEFAULT_TAG
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,18 +40,22 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
-        
-        // loadMockData(10)
-        
-        // Fetch saved data from code data
-        RecordManager.Fetch()
-        
-        // Migration
-         migrationForTags()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Fetch saved data from code data
+        if isFromTagsScreen {
+            RecordManager.FetchRecords(for: tag)
+            navigationItem.title = tag
+        } else {
+            RecordManager.Fetch()
+            // loadMockData(10)
+            
+            // Migration
+            migrationForTags()
+        }
         collectionView.reloadData()
     }
     
@@ -140,6 +147,11 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RecordCollectionViewCell
+
+        // Don't show tag info in the card when viewing tag Records
+        if isFromTagsScreen {
+            cell.isFromTagsScreen = true
+        }
         
         if isFiltering {
             cell.record = filteredRecords[indexPath.item]

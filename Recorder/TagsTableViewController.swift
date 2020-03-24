@@ -9,7 +9,7 @@
 import UIKit
 
 private let reuseIdentifier = "tagsCell"
-private let tagRecordsSegue = "tagRecordsSegue"
+private let tagRecordsSegue = "tagsToRecordsSegue"
 
 class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
     
@@ -139,8 +139,9 @@ class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
         
         if segue.identifier == tagRecordsSegue {
             let selectedIndexPath = self.tableView.indexPathForSelectedRow!
-            let tagRecordsVC = segue.destination as! TagRecordsCollectionViewController
+            let tagRecordsVC = segue.destination as! RecordsCollectionViewController
             tagRecordsVC.tag = TagManager.Tags[selectedIndexPath.section][selectedIndexPath.item]
+            tagRecordsVC.isFromTagsScreen = true
         }
     }
 
