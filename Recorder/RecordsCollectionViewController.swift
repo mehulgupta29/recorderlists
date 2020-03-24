@@ -38,7 +38,7 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
-        // loadMockData()
+//         loadMockData(10)
         
         // Fetch saved data from code data
         RecordManager.Fetch()
@@ -49,9 +49,9 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         collectionView.reloadData()
     }
     
-//    func loadMockData() {
-//        for i in stride(from: 1, to: 10, by: 1) {
-//            RecordManager.Save(record: Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)"))
+//    func loadMockData(_ limit: Int) {
+//        for i in stride(from: 1, to: limit, by: 1) {
+//            RecordManager.Save(record: Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)", tag: "Tag\(i < 5 ? "Black" : "Rock")"))
 //        }
 //    }
 
