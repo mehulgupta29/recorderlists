@@ -9,6 +9,7 @@
 import UIKit
 
 private let reuseIdentifier = "tagsCell"
+private let tagRecordsSegue = "tagRecordsSegue"
 
 class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
     
@@ -84,6 +85,11 @@ class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
         return cell
     }
     
+    // Segue to TagRecords Screen
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: tagRecordsSegue, sender: self)
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -120,14 +126,19 @@ class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == tagRecordsSegue {
+            let selectedIndexPath = self.tableView.indexPathForSelectedRow!
+            let tagRecordsVC = segue.destination as! TagRecordsCollectionViewController
+            tagRecordsVC.tag = TagManager.Tags[selectedIndexPath.section][selectedIndexPath.item]
+        }
     }
-    */
 
 }
