@@ -39,6 +39,9 @@ class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        
+        // Load Tags Data
+        TagManager.FetchDistinctTags()
     }
     
     // MARK: - Search
@@ -46,24 +49,24 @@ class TagsTableViewController: UITableViewController, UISearchResultsUpdating {
     }
 
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return ""
-    }
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return ""
+//    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return TagManager.Tags.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = "Foo"
+        cell.textLabel?.text = TagManager.Tags[indexPath.item]
         return cell
     }
     

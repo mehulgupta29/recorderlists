@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let DEFAULT_TAG = "DEFAULT"
+let DEFAULT_TAG = "DEFAULT"
 
 class Record: NSObject {
     var header: String?

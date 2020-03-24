@@ -86,7 +86,7 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         alert.addTextField(configurationHandler: { textField in textField.placeholder = "Header" })
         alert.addTextField(configurationHandler: { textField in textField.placeholder = "Field One" })
         alert.addTextField(configurationHandler: { textField in textField.placeholder = "Field Two" })
-        alert.addTextField(configurationHandler: { textField in textField.text = "DEFAULT" })
+        alert.addTextField(configurationHandler: { textField in textField.text = DEFAULT_TAG })
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { action in
