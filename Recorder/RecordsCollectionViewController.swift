@@ -40,10 +40,15 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        
+        navigationItem.title = "Foo"
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.foregroundColor : UIColor.red
+        ]
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         // Fetch saved data from code data
         if isFromTagsScreen {
@@ -51,19 +56,19 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
             navigationItem.title = tag
         } else {
             RecordManager.Fetch()
-            // loadMockData(10)
+//             loadMockData(50)
             
             // Migration
-            migrationForTags()
+//            migrationForTags()
         }
         collectionView.reloadData()
     }
     
-//    func loadMockData(_ limit: Int) {
-//        for i in stride(from: 1, to: limit, by: 1) {
-//            RecordManager.Save(record: Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)", tag: "Tag\(i < 5 ? "Black" : "Rock")"))
-//        }
-//    }
+    func loadMockData(_ limit: Int) {
+        for i in stride(from: 1, to: limit, by: 1) {
+            RecordManager.Save(record: Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)", tag: "Tag\(i < 10 ? "Black" : "Rock")"))
+        }
+    }
     
     func migrationForTags() {
         for record in RecordManager.Records {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="slE-Mk-vHN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="slE-Mk-vHN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,7 +12,7 @@
             <objects>
                 <collectionViewController id="QSo-Ii-Vr6" customClass="RecordsCollectionViewController" customModule="Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="DOy-oF-EPT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="F18-H9-UpQ">
@@ -97,7 +97,7 @@
                             <outlet property="delegate" destination="QSo-Ii-Vr6" id="ric-ae-sKP"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Records" largeTitleDisplayMode="always" id="wF9-BN-Tcy">
+                    <navigationItem key="navigationItem" title="Records" id="wF9-BN-Tcy">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="D5G-xu-DnF">
                             <connections>
                                 <action selector="AddRecord:" destination="QSo-Ii-Vr6" id="cuX-Qc-Mup"/>
@@ -158,7 +158,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zDH-8V-pP6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Records" image="square.stack.3d.up.fill" catalog="system" selectedImage="square.stack.3d.up.fill" id="i8p-lM-LuO"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" largeTitles="YES" id="o5t-iP-1ex">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" largeTitles="YES" id="o5t-iP-1ex">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -204,6 +204,12 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -215,11 +221,11 @@
             <point key="canvasLocation" x="174" y="864"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="square.stack.3d.up.fill" catalog="system" width="64" height="62"/>
-        <image name="tag" catalog="system" width="64" height="58"/>
-    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AWT-2L-MEJ"/>
+        <segue reference="FKI-mp-BRh"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="square.stack.3d.up.fill" catalog="system" width="128" height="124"/>
+        <image name="tag" catalog="system" width="128" height="116"/>
+    </resources>
 </document>
