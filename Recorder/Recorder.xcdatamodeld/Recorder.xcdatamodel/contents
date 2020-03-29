@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Records" representedClassName="Records" syncable="YES" codeGenerationType="class">
         <attribute name="field1" optional="YES" attributeType="String"/>
         <attribute name="field2" optional="YES" attributeType="String"/>
         <attribute name="header" optional="YES" attributeType="String"/>
         <attribute name="misc" optional="YES" attributeType="String"/>
         <attribute name="tag" optional="YES" attributeType="String"/>
+        <attribute name="tagBgColorAlpha" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="tagBgColorBlue" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="tagBgColorGreen" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="tagBgColorRed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="Records" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Records" positionX="-63" positionY="-18" width="128" height="193"/>
     </elements>
 </model>

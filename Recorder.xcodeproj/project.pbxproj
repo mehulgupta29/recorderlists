@@ -17,9 +17,10 @@
 		486D643B2426DA7200BB20BF /* RecordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D643A2426DA7200BB20BF /* RecordCollectionViewCell.swift */; };
 		486D643D2426DA8900BB20BF /* RecordsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D643C2426DA8900BB20BF /* RecordsCollectionViewController.swift */; };
 		486D643F2426DE1200BB20BF /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D643E2426DE1200BB20BF /* Record.swift */; };
-		48888D5824279D75007F10BF /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48888D5724279D75007F10BF /* RecordManager.swift */; };
 		48888D5A242971BF007F10BF /* TagsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48888D59242971BF007F10BF /* TagsTableViewController.swift */; };
 		48888D5C24298DBB007F10BF /* TagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48888D5B24298DBB007F10BF /* TagManager.swift */; };
+		48FAA812242B85A600BB1588 /* RecordsManagerDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FAA811242B85A600BB1588 /* RecordsManagerDAO.swift */; };
+		48FAA814242B860A00BB1588 /* RecordsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FAA813242B860A00BB1588 /* RecordsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,9 +36,10 @@
 		486D643A2426DA7200BB20BF /* RecordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCollectionViewCell.swift; sourceTree = "<group>"; };
 		486D643C2426DA8900BB20BF /* RecordsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsCollectionViewController.swift; sourceTree = "<group>"; };
 		486D643E2426DE1200BB20BF /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
-		48888D5724279D75007F10BF /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
 		48888D59242971BF007F10BF /* TagsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTableViewController.swift; sourceTree = "<group>"; };
 		48888D5B24298DBB007F10BF /* TagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManager.swift; sourceTree = "<group>"; };
+		48FAA811242B85A600BB1588 /* RecordsManagerDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsManagerDAO.swift; sourceTree = "<group>"; };
+		48FAA813242B860A00BB1588 /* RecordsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +83,10 @@
 				486D643C2426DA8900BB20BF /* RecordsCollectionViewController.swift */,
 				486D643A2426DA7200BB20BF /* RecordCollectionViewCell.swift */,
 				486D643E2426DE1200BB20BF /* Record.swift */,
-				48888D5724279D75007F10BF /* RecordManager.swift */,
 				48888D59242971BF007F10BF /* TagsTableViewController.swift */,
 				48888D5B24298DBB007F10BF /* TagManager.swift */,
+				48FAA811242B85A600BB1588 /* RecordsManagerDAO.swift */,
+				48FAA813242B860A00BB1588 /* RecordsManager.swift */,
 			);
 			path = Recorder;
 			sourceTree = "<group>";
@@ -159,13 +162,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48888D5824279D75007F10BF /* RecordManager.swift in Sources */,
+				48FAA812242B85A600BB1588 /* RecordsManagerDAO.swift in Sources */,
 				486D643B2426DA7200BB20BF /* RecordCollectionViewCell.swift in Sources */,
 				48888D5C24298DBB007F10BF /* TagManager.swift in Sources */,
 				486D64242426D7A600BB20BF /* ViewController.swift in Sources */,
 				486D64202426D7A600BB20BF /* AppDelegate.swift in Sources */,
 				48888D5A242971BF007F10BF /* TagsTableViewController.swift in Sources */,
 				486D64222426D7A600BB20BF /* SceneDelegate.swift in Sources */,
+				48FAA814242B860A00BB1588 /* RecordsManager.swift in Sources */,
 				486D643F2426DE1200BB20BF /* Record.swift in Sources */,
 				486D642A2426D7A600BB20BF /* Recorder.xcdatamodeld in Sources */,
 				486D643D2426DA8900BB20BF /* RecordsCollectionViewController.swift in Sources */,

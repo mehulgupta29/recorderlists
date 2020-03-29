@@ -40,41 +40,33 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
-        
-        navigationItem.title = "Foo"
-        navigationController?.navigationBar.largeTitleTextAttributes = [
-            NSAttributedString.Key.foregroundColor : UIColor.red
-        ]
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         // Fetch saved data from code data
         if isFromTagsScreen {
-            RecordManager.FetchRecords(for: tag)
+            RecordsManagerDAO.Fetch(forTag: tag)
             navigationItem.title = tag
-        } else {
-            RecordManager.Fetch()
-//             loadMockData(50)
             
-            // Migration
-//            migrationForTags()
+            // TODO Set tag color as nav title fgColor
+            navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor : UIColor.red
+            ]
+            
+        } else {
+            RecordsManagerDAO.Fetch()
+//             loadMockData(50)
         }
         collectionView.reloadData()
     }
     
-    func loadMockData(_ limit: Int) {
-        for i in stride(from: 1, to: limit, by: 1) {
-            RecordManager.Save(record: Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)", tag: "Tag\(i < 10 ? "Black" : "Rock")"))
-        }
-    }
-    
-    func migrationForTags() {
-        for record in RecordManager.Records {
-            RecordManager.Update(oldRecord: record, header: record.header!, field1: record.field1!, field2: record.field2!, tag: record.tag!, misc: record.misc!)
-        }
-    }
+//    func loadMockData(_ limit: Int) {
+//        for i in stride(from: 1, to: limit, by: 1) {
+//            RecordManager.Save(record: Record(header: "Header\(i)", field1: "Username\(i)", field2: "Password\(i)", tag: "Tag\(i < 10 ? "Black" : "Rock")"))
+//        }
+//    }
 
     /*
     // MARK: - Navigation
@@ -95,7 +87,7 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         filterContentForSearchText(searchBar.text!)
     }
     func filterContentForSearchText(_ searchText: String) {
-        filteredRecords = RecordManager.Records.filter { (record: Record) -> Bool in
+        filteredRecords = RecordsManager.Records.filter { (record: Record) -> Bool in
         return record.header!.lowercased().contains(searchText.lowercased()) || record.field1!.lowercased().contains(searchText.lowercased()) || record.field2!.lowercased().contains(searchText.lowercased()) || record.tag!.uppercased().contains(searchText.uppercased())
       }
       collectionView.reloadData()
@@ -117,7 +109,7 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
             let field2 = alert.textFields![2].text!
             let tag = alert.textFields![3].text!
 
-            RecordManager.Save(record: Record(header: header, field1: field1, field2: field2, tag: tag))
+            RecordsManagerDAO.Save(record: Record(header: header, field1: field1, field2: field2, tag: tag))
             self.collectionView.reloadData()
         }))
 
@@ -148,7 +140,7 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         if isFiltering {
             return filteredRecords.count
         }
-        return RecordManager.Records.count
+        return RecordsManager.Records.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RecordCollectionViewCell
@@ -161,12 +153,12 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
         if isFiltering {
             cell.record = filteredRecords[indexPath.item]
         } else {
-            cell.record = RecordManager.Records[indexPath.item]
+            cell.record = RecordsManager.Records[indexPath.item]
         }
         return cell
     }
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedRecord: Record = RecordManager.Records[indexPath.item]
+        let selectedRecord: Record = RecordsManager.Records[indexPath.item]
         
         let questionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         questionController.addAction(UIAlertAction(title: "Update Record", style: .default, handler: {
@@ -185,7 +177,8 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
                 let field2 = updateRecordAC.textFields![2].text!
                 let tag = updateRecordAC.textFields![3].text!
 
-                RecordManager.Update(oldRecord: selectedRecord, header: header, field1: field1, field2: field2, tag: tag, misc: selectedRecord.misc!)
+                let newRecord = [header: header, field1: field1, field2: field2, tag: tag]
+                RecordsManagerDAO.Update(record: selectedRecord, new: newRecord)
                 self.collectionView.reloadData()
             }))
 
@@ -197,7 +190,7 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {
                 (action:UIAlertAction!) -> Void in
-                RecordManager.Delete(forRecordAt: indexPath.item)
+                RecordsManagerDAO.Delete(forRecordAt: indexPath.item)
                 self.collectionView.reloadData()
             }))
             self.present(ac, animated: true, completion: nil)
@@ -206,11 +199,6 @@ class RecordsCollectionViewController: UICollectionViewController, UICollectionV
 
         present(questionController, animated: true, completion: nil)
     }
-    
-    // TODO: Update cell
-    // TODO: Delete cell
-    // TODO: Slide right-to-left to delete
-    // TODO: Slide left-to-right to update
 
     // MARK: UICollectionViewDelegate
     /*
